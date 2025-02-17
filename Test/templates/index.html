@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách cây</title>
+    <!-- Thêm Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <h1 class="text-center text-primary">🌳 Danh sách cây 🌳</h1>
+
+        <div class="d-flex justify-content-between mb-3">
+            <a href="{{ url_for('add_edit') }}" class="btn btn-success">➕ Thêm cây mới</a>
+
+            <!-- Tìm kiếm -->
+            <form class="d-flex" method="GET" action="{{ url_for('search') }}">
+                <input type="text" name="query" class="form-control me-2" placeholder="Tìm kiếm cây...">
+                <button type="submit" class="btn btn-primary">🔍 Tìm kiếm</button>
+            </form>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên cây</th>
+                    <th>Loài</th>
+                    <th>Vị trí</th>
+                    <th>Tuổi</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tree in trees %}
+                <tr>
+                    <td>{{ tree[0] }}</td>
+                    <td>{{ tree[1] }}</td>
+                    <td>{{ tree[2] }}</td>
+                    <td>{{ tree[3] }}</td>
+                    <td>{{ tree[4] }}</td>
+                    <td>{{ tree[5] }}</td>
+                    <td>
+                        <a href="{{ url_for('add_edit', id=tree[0]) }}" class="btn btn-warning btn-sm">✏️ Sửa</a>
+                        <a href="{{ url_for('delete', tree_id=tree[0]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn xóa?')">🗑️ Xóa</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
